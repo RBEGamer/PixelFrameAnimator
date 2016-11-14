@@ -37,8 +37,14 @@
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.openBMPToLayerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.importMultiframeBitmapToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.addColorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.label5 = new System.Windows.Forms.Label();
+            this.layer_delay_ud = new System.Windows.Forms.NumericUpDown();
+            this.label4 = new System.Windows.Forms.Label();
+            this.layer_visible_up = new System.Windows.Forms.NumericUpDown();
             this.copy_frame_data_chbx = new System.Windows.Forms.CheckBox();
             this.button3 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
@@ -47,6 +53,8 @@
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.color_chooser = new System.Windows.Forms.Panel();
             this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.label3 = new System.Windows.Forms.Label();
+            this.exp_layer_cboxlist = new System.Windows.Forms.CheckedListBox();
             this.label1 = new System.Windows.Forms.Label();
             this.matrix_size_widht = new System.Windows.Forms.NumericUpDown();
             this.Label2 = new System.Windows.Forms.Label();
@@ -54,24 +62,18 @@
             this.matrix_panel = new System.Windows.Forms.Panel();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
-            this.exp_layer_cboxlist = new System.Windows.Forms.CheckedListBox();
-            this.label3 = new System.Windows.Forms.Label();
-            this.layer_visible_up = new System.Windows.Forms.NumericUpDown();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.layer_delay_ud = new System.Windows.Forms.NumericUpDown();
             this.colorDialog1 = new System.Windows.Forms.ColorDialog();
-            this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.addColorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.button4 = new System.Windows.Forms.Button();
+            this.button5 = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.layer_delay_ud)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layer_visible_up)).BeginInit();
             this.tabPage2.SuspendLayout();
             this.tabPage3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.matrix_size_widht)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.matrix_size_height)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.layer_visible_up)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.layer_delay_ud)).BeginInit();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -148,6 +150,21 @@
             this.importMultiframeBitmapToolStripMenuItem.Text = "Import Multiframe Bitmap";
             this.importMultiframeBitmapToolStripMenuItem.Click += new System.EventHandler(this.importMultiframeBitmapToolStripMenuItem_Click);
             // 
+            // editToolStripMenuItem
+            // 
+            this.editToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.addColorToolStripMenuItem});
+            this.editToolStripMenuItem.Name = "editToolStripMenuItem";
+            this.editToolStripMenuItem.Size = new System.Drawing.Size(39, 20);
+            this.editToolStripMenuItem.Text = "&Edit";
+            // 
+            // addColorToolStripMenuItem
+            // 
+            this.addColorToolStripMenuItem.Name = "addColorToolStripMenuItem";
+            this.addColorToolStripMenuItem.Size = new System.Drawing.Size(128, 22);
+            this.addColorToolStripMenuItem.Text = "Add Color";
+            this.addColorToolStripMenuItem.Click += new System.EventHandler(this.addColorToolStripMenuItem_Click);
+            // 
             // tabControl1
             // 
             this.tabControl1.Controls.Add(this.tabPage1);
@@ -177,6 +194,65 @@
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "LAYERS";
             this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(44, 286);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(83, 13);
+            this.label5.TabIndex = 12;
+            this.label5.Text = "LAYER_DELAY";
+            // 
+            // layer_delay_ud
+            // 
+            this.layer_delay_ud.Increment = new decimal(new int[] {
+            10000,
+            0,
+            0,
+            0});
+            this.layer_delay_ud.Location = new System.Drawing.Point(34, 302);
+            this.layer_delay_ud.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.layer_delay_ud.Name = "layer_delay_ud";
+            this.layer_delay_ud.Size = new System.Drawing.Size(120, 20);
+            this.layer_delay_ud.TabIndex = 11;
+            this.layer_delay_ud.Value = new decimal(new int[] {
+            100,
+            0,
+            0,
+            0});
+            this.layer_delay_ud.ValueChanged += new System.EventHandler(this.layer_delay_ud_ValueChanged);
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(31, 239);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(134, 13);
+            this.label4.TabIndex = 10;
+            this.label4.Text = "LAYER VISIBILITY (0-255)";
+            // 
+            // layer_visible_up
+            // 
+            this.layer_visible_up.Location = new System.Drawing.Point(34, 255);
+            this.layer_visible_up.Maximum = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
+            this.layer_visible_up.Name = "layer_visible_up";
+            this.layer_visible_up.Size = new System.Drawing.Size(120, 20);
+            this.layer_visible_up.TabIndex = 9;
+            this.layer_visible_up.Value = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
+            this.layer_visible_up.ValueChanged += new System.EventHandler(this.layer_visible_up_ValueChanged);
             // 
             // copy_frame_data_chbx
             // 
@@ -249,6 +325,8 @@
             // 
             // tabPage3
             // 
+            this.tabPage3.Controls.Add(this.button5);
+            this.tabPage3.Controls.Add(this.button4);
             this.tabPage3.Controls.Add(this.label3);
             this.tabPage3.Controls.Add(this.exp_layer_cboxlist);
             this.tabPage3.Controls.Add(this.label1);
@@ -261,6 +339,23 @@
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "SETTINGS";
             this.tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(50, 81);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(96, 13);
+            this.label3.TabIndex = 5;
+            this.label3.Text = "EXPORT LAYERS";
+            // 
+            // exp_layer_cboxlist
+            // 
+            this.exp_layer_cboxlist.FormattingEnabled = true;
+            this.exp_layer_cboxlist.Location = new System.Drawing.Point(17, 97);
+            this.exp_layer_cboxlist.Name = "exp_layer_cboxlist";
+            this.exp_layer_cboxlist.Size = new System.Drawing.Size(167, 214);
+            this.exp_layer_cboxlist.TabIndex = 4;
             // 
             // label1
             // 
@@ -325,96 +420,25 @@
             // 
             this.openFileDialog1.FileName = "openFileDialog1";
             // 
-            // exp_layer_cboxlist
+            // button4
             // 
-            this.exp_layer_cboxlist.FormattingEnabled = true;
-            this.exp_layer_cboxlist.Location = new System.Drawing.Point(17, 270);
-            this.exp_layer_cboxlist.Name = "exp_layer_cboxlist";
-            this.exp_layer_cboxlist.Size = new System.Drawing.Size(167, 214);
-            this.exp_layer_cboxlist.TabIndex = 4;
+            this.button4.Location = new System.Drawing.Point(17, 318);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(167, 23);
+            this.button4.TabIndex = 6;
+            this.button4.Text = "UNSELECT ALL";
+            this.button4.UseVisualStyleBackColor = true;
+            this.button4.Click += new System.EventHandler(this.button4_Click);
             // 
-            // label3
+            // button5
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(45, 244);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(96, 13);
-            this.label3.TabIndex = 5;
-            this.label3.Text = "EXPORT LAYERS";
-            // 
-            // layer_visible_up
-            // 
-            this.layer_visible_up.Location = new System.Drawing.Point(34, 255);
-            this.layer_visible_up.Maximum = new decimal(new int[] {
-            255,
-            0,
-            0,
-            0});
-            this.layer_visible_up.Name = "layer_visible_up";
-            this.layer_visible_up.Size = new System.Drawing.Size(120, 20);
-            this.layer_visible_up.TabIndex = 9;
-            this.layer_visible_up.Value = new decimal(new int[] {
-            255,
-            0,
-            0,
-            0});
-            this.layer_visible_up.ValueChanged += new System.EventHandler(this.layer_visible_up_ValueChanged);
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(31, 239);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(134, 13);
-            this.label4.TabIndex = 10;
-            this.label4.Text = "LAYER VISIBILITY (0-255)";
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(44, 286);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(83, 13);
-            this.label5.TabIndex = 12;
-            this.label5.Text = "LAYER_DELAY";
-            // 
-            // layer_delay_ud
-            // 
-            this.layer_delay_ud.Increment = new decimal(new int[] {
-            10000,
-            0,
-            0,
-            0});
-            this.layer_delay_ud.Location = new System.Drawing.Point(34, 302);
-            this.layer_delay_ud.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.layer_delay_ud.Name = "layer_delay_ud";
-            this.layer_delay_ud.Size = new System.Drawing.Size(120, 20);
-            this.layer_delay_ud.TabIndex = 11;
-            this.layer_delay_ud.Value = new decimal(new int[] {
-            100,
-            0,
-            0,
-            0});
-            this.layer_delay_ud.ValueChanged += new System.EventHandler(this.layer_delay_ud_ValueChanged);
-            // 
-            // editToolStripMenuItem
-            // 
-            this.editToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.addColorToolStripMenuItem});
-            this.editToolStripMenuItem.Name = "editToolStripMenuItem";
-            this.editToolStripMenuItem.Size = new System.Drawing.Size(39, 20);
-            this.editToolStripMenuItem.Text = "&Edit";
-            // 
-            // addColorToolStripMenuItem
-            // 
-            this.addColorToolStripMenuItem.Name = "addColorToolStripMenuItem";
-            this.addColorToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.addColorToolStripMenuItem.Text = "Add Color";
-            this.addColorToolStripMenuItem.Click += new System.EventHandler(this.addColorToolStripMenuItem_Click);
+            this.button5.Location = new System.Drawing.Point(17, 347);
+            this.button5.Name = "button5";
+            this.button5.Size = new System.Drawing.Size(167, 23);
+            this.button5.TabIndex = 7;
+            this.button5.Text = "SELECT ALL";
+            this.button5.UseVisualStyleBackColor = true;
+            this.button5.Click += new System.EventHandler(this.button5_Click);
             // 
             // Form1
             // 
@@ -435,13 +459,13 @@
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.layer_delay_ud)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layer_visible_up)).EndInit();
             this.tabPage2.ResumeLayout(false);
             this.tabPage3.ResumeLayout(false);
             this.tabPage3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.matrix_size_widht)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.matrix_size_height)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.layer_visible_up)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.layer_delay_ud)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -483,6 +507,8 @@
         private System.Windows.Forms.ToolStripMenuItem editToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem addColorToolStripMenuItem;
         private System.Windows.Forms.ColorDialog colorDialog1;
+        private System.Windows.Forms.Button button4;
+        private System.Windows.Forms.Button button5;
     }
 }
 

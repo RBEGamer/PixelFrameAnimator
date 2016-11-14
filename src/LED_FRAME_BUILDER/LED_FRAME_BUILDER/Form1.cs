@@ -56,17 +56,19 @@ namespace LED_FRAME_BUILDER
             catch (Exception)
             {
                 FileStream sw = File.Create("basic_color_table.csv");
-               MessageBox.Show("basic_color_table.csv could not be found please add one to the executable folder");
+              MessageBox.Show("basic_color_table.csv could not be found a simple colortable was created");
                //TODO ADD SAMPLE COLORS SIME R G B WHITE BLACK
                 sw.Close();
-                return;
+
+                System.IO.File.WriteAllText("basic_color_table.csv", "0;0;0;\n255;0;0;\n0;255;0;\n0;0;255;\n");
+            //    return;
             }
             StreamReader sr = File.OpenText("basic_color_table.csv");
             int count = 0;
             while (true)
             {
                 string read_string = sr.ReadLine();
-                if(read_string == null)
+                if(read_string == "")
                 {
                     break;
                 }
@@ -95,7 +97,12 @@ namespace LED_FRAME_BUILDER
                 pic.Name = "colorpick_" + i.ToString();
                 pic.Size = new Size(32, 32);
                 pic.BackColor = colors[i];
-                pic.Location = new Point((i % color_pw)*32,(i / color_ph)*32);
+                int row_mult = 0;
+                if (color_ph > 0)
+                {
+                     row_mult = (i / color_ph);
+                }
+                pic.Location = new Point((i % color_pw)*32, row_mult * 32);
                 pic.Click += click_color;
 
                 color_chooser.Controls.Add(pic);
@@ -166,7 +173,7 @@ private bool AreColorsSimilar(Color c1, Color c2, int tolerance)
                     //CREATE COLOR TABLE
                     for (int i = 0; i < colors.Count; i++)
                     {
-                        color_text += colors[i].A.ToString() + ";" + colors[i].G.ToString() + ";" + colors[i].B.ToString() +";" + "\n";
+                        color_text += colors[i].R.ToString() + ";" + colors[i].G.ToString() + ";" + colors[i].B.ToString() +";" + "\n";
                     }
                     char[] bla= color_text.ToCharArray();
 
@@ -178,7 +185,12 @@ private bool AreColorsSimilar(Color c1, Color c2, int tolerance)
                     MessageBox.Show("EXPORT FAILED - basic_color_table.csv cant export");
                     return;
                 }
-                
+
+
+                int bytes_table = (1 * matrix_size_h * matrix_size_w * exp_layer_cboxlist.CheckedItems.Count) + (7* exp_layer_cboxlist.CheckedItems.Count);
+                int bytes_color = 3 * colors.Count;
+
+                MessageBox.Show("BYTES FOR FRAMES : " + bytes_table.ToString() + " BYTES FOR COLOR TABLE: " + bytes_color.ToString() + " = " + (bytes_color + bytes_table).ToString() + " .");
             }
             else
             {
@@ -770,6 +782,22 @@ private bool AreColorsSimilar(Color c1, Color c2, int tolerance)
                     pic.BackColor = colors[colors.Count - 1];
                     color_id_to_write = colors.Count - 1;
                 }
+            }
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            foreach (int i in exp_layer_cboxlist.CheckedIndices)
+            {
+                exp_layer_cboxlist.SetItemCheckState(i, CheckState.Unchecked);
+            }
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            foreach (int i in exp_layer_cboxlist.CheckedIndices)
+            {
+                exp_layer_cboxlist.SetItemCheckState(i, CheckState.Checked);
             }
         }
     }
