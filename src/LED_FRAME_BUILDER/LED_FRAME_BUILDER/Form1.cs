@@ -230,7 +230,8 @@ private bool AreColorsSimilar(Color c1, Color c2, int tolerance)
                 //Get frame size
                 int frame_size_w = 0;
                 int frame_size_h = 0;
-
+                int delay = 500;
+                int visi = 255;
                 for (int i = 0; i < lines.Length; i++)
                 {
 
@@ -241,6 +242,8 @@ private bool AreColorsSimilar(Color c1, Color c2, int tolerance)
                         frame_id = int.Parse(split_content[1]);
                         int t_frame_size_w = int.Parse(split_content[3]);
                         int t_frame_size_h = int.Parse(split_content[4]);
+                        visi = int.Parse(split_content[5]);
+                        delay = int.Parse(split_content[6]);
                         if(t_frame_size_w > frame_size_w)
                         {
                             frame_size_w = t_frame_size_w;
@@ -262,6 +265,8 @@ private bool AreColorsSimilar(Color c1, Color c2, int tolerance)
 
 
                 tmp_layer = new layer();
+                tmp_layer.delay = delay;
+                tmp_layer.visibilty = visi;
                 tmp_layer.matrix_cid = new int[frame_size_w, frame_size_h];
                 int frame_curr_counter = 0;
 
