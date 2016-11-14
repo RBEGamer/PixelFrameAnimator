@@ -588,7 +588,12 @@ private bool AreColorsSimilar(Color c1, Color c2, int tolerance)
                             PictureBox pic = new PictureBox();
                             pic.Name = "colorpick_" + colors.Count.ToString();
                             pic.Size = new Size(32, 32);
-                            pic.Location = new Point((colors.Count % color_pw) * 32, (colors.Count / color_ph) * 32);
+                            int row_mult = 0;
+                            if (color_ph > 0)
+                            {
+                                row_mult = (colors.Count / row_mult);
+                            }
+                            pic.Location = new Point((colors.Count % color_pw) * 32, row_mult * 32);
                             pic.Click += click_color;
                             color_chooser.Controls.Add(pic);
                             colors.Add(tmp_col);
@@ -705,7 +710,12 @@ private bool AreColorsSimilar(Color c1, Color c2, int tolerance)
                                     PictureBox pic = new PictureBox();
                                     pic.Name = "colorpick_" + colors.Count.ToString();
                                     pic.Size = new Size(32, 32);
-                                    pic.Location = new Point((colors.Count % color_pw) * 32, (colors.Count / color_ph) * 32);
+                                    int row_mult = 0;
+                                    if (color_ph > 0)
+                                    {
+                                        row_mult = (colors.Count / row_mult);
+                                    }
+                                    pic.Location = new Point((colors.Count % color_pw) * 32, row_mult * 32);
                                     pic.Click += click_color;
                                     color_chooser.Controls.Add(pic);
                                     colors.Add(tmp_col);
