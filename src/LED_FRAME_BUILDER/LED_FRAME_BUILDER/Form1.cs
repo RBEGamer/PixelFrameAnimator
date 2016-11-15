@@ -598,7 +598,7 @@ private bool AreColorsSimilar(Color c1, Color c2, int tolerance)
                             int row_mult = 0;
                             if (color_ph > 0)
                             {
-                                row_mult = (colors.Count / row_mult);
+                                row_mult = (colors.Count / color_ph);
                             }
                             pic.Location = new Point((colors.Count % color_pw) * 32, row_mult * 32);
                             pic.Click += click_color;
@@ -720,7 +720,7 @@ private bool AreColorsSimilar(Color c1, Color c2, int tolerance)
                                     int row_mult = 0;
                                     if (color_ph > 0)
                                     {
-                                        row_mult = (colors.Count / row_mult);
+                                        row_mult = (colors.Count / color_ph);
                                     }
                                     pic.Location = new Point((colors.Count % color_pw) * 32, row_mult * 32);
                                     pic.Click += click_color;
@@ -795,7 +795,7 @@ private bool AreColorsSimilar(Color c1, Color c2, int tolerance)
                     int row_mult = 0;
                     if (color_ph > 0)
                     {
-                        row_mult = (colors.Count / row_mult);
+                        row_mult = (colors.Count / color_ph);
                     }
                     pic.Location = new Point((colors.Count % color_pw) * 32, row_mult * 32);
                     pic.Click += click_color;
