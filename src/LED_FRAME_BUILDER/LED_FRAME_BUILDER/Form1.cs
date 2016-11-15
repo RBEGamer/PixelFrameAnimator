@@ -50,20 +50,20 @@ namespace LED_FRAME_BUILDER
             try
             {
                 //TODO REMOVE THE TRY SHIT
-                StreamReader sra = File.OpenText("basic_color_table.csv");
+                StreamReader sra = File.OpenText("COLORS.csv");
                 sra.Close();
             }
             catch (Exception)
             {
-                FileStream sw = File.Create("basic_color_table.csv");
+                FileStream sw = File.Create("COLORS.csv");
               MessageBox.Show("basic_color_table.csv could not be found a simple colortable was created");
                //TODO ADD SAMPLE COLORS SIME R G B WHITE BLACK
                 sw.Close();
 
-                System.IO.File.WriteAllText("basic_color_table.csv", "0;0;0;\n255;0;0;\n0;255;0;\n0;0;255;\n");
+                System.IO.File.WriteAllText("COLORS.csv", "0;0;0;\n255;0;0;\n0;255;0;\n0;0;255;\n");
             //    return;
             }
-            StreamReader sr = File.OpenText("basic_color_table.csv");
+            StreamReader sr = File.OpenText("COLORS.csv");
             int count = 0;
             while (true)
             {
@@ -119,9 +119,10 @@ private bool AreColorsSimilar(Color c1, Color c2, int tolerance)
         private void export_layers()
         {
             //get sel layer coutn
-            saveFileDialog1.Filter = "FRAME_BUIDER_ANIMATION_FILE (.anim) | *.anim";
+            saveFileDialog1.Filter = "FRAME_BUIDER_ANIMATION_FILE (.ANI) | *.ANI";
             if (saveFileDialog1.ShowDialog() == DialogResult.OK)
             {
+                
                 if (!saveFileDialog1.CheckPathExists)
                 {
                     MessageBox.Show("EXPORT FAILED - path does not exits");
@@ -159,14 +160,14 @@ private bool AreColorsSimilar(Color c1, Color c2, int tolerance)
                 matrix_data += "\n";
             }
            
-                System.IO.File.WriteAllText(saveFileDialog1.FileName, matrix_data);
+                System.IO.File.WriteAllText(saveFileDialog1.FileName.ToUpper(), matrix_data);
 
 
 
                 //NOW EXPORT COLOR TABLE
                 try
                 {
-                    FileStream fileStream = File.Open("basic_color_table.csv", FileMode.Open);
+                    FileStream fileStream = File.Open("COLORS.csv", FileMode.Open);
                     fileStream.SetLength(0);
                     fileStream.Flush();
                     string color_text = "";
@@ -182,7 +183,7 @@ private bool AreColorsSimilar(Color c1, Color c2, int tolerance)
                 }
                 catch (Exception)
                 {
-                    MessageBox.Show("EXPORT FAILED - basic_color_table.csv cant export");
+                    MessageBox.Show("EXPORT FAILED - COLORS.csv cant export");
                     return;
                 }
 
@@ -206,7 +207,7 @@ private bool AreColorsSimilar(Color c1, Color c2, int tolerance)
 
 
             openFileDialog1.FileName = "";
-            openFileDialog1.Filter = "FRAME_BUIDER_ANIMATION_FILE (.anim) | *.anim";
+            openFileDialog1.Filter = "FRAME_BUIDER_ANIMATION_FILE (.ANI) | *.ANI";
             int frame_counter = 0;
             int frame_id = 0;
 
@@ -219,6 +220,7 @@ private bool AreColorsSimilar(Color c1, Color c2, int tolerance)
 
             if (openFileDialog1.ShowDialog() == DialogResult.OK)
             {
+                
                 StreamReader sr = File.OpenText(openFileDialog1.FileName);
 
 
@@ -790,7 +792,12 @@ private bool AreColorsSimilar(Color c1, Color c2, int tolerance)
                     PictureBox pic = new PictureBox();
                     pic.Name = "colorpick_" + colors.Count.ToString();
                     pic.Size = new Size(32, 32);
-                    pic.Location = new Point((colors.Count % color_pw) * 32, (colors.Count / color_ph) * 32);
+                    int row_mult = 0;
+                    if (color_ph > 0)
+                    {
+                        row_mult = (colors.Count / row_mult);
+                    }
+                    pic.Location = new Point((colors.Count % color_pw) * 32, row_mult * 32);
                     pic.Click += click_color;
                     color_chooser.Controls.Add(pic);
                     colors.Add(tmp_col);
