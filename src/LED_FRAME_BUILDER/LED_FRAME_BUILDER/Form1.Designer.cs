@@ -53,6 +53,8 @@
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.color_chooser = new System.Windows.Forms.Panel();
             this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.button5 = new System.Windows.Forms.Button();
+            this.button4 = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
             this.exp_layer_cboxlist = new System.Windows.Forms.CheckedListBox();
             this.label1 = new System.Windows.Forms.Label();
@@ -63,8 +65,9 @@
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.colorDialog1 = new System.Windows.Forms.ColorDialog();
-            this.button4 = new System.Windows.Forms.Button();
-            this.button5 = new System.Windows.Forms.Button();
+            this.importASPRITEProjectToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.fileSystemWatcher1 = new System.IO.FileSystemWatcher();
+            this.ase_auto_import_cbx = new System.Windows.Forms.CheckBox();
             this.menuStrip1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -74,6 +77,7 @@
             this.tabPage3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.matrix_size_widht)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.matrix_size_height)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.fileSystemWatcher1)).BeginInit();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -95,7 +99,8 @@
             this.speichernToolStripMenuItem,
             this.toolStripSeparator1,
             this.openBMPToLayerToolStripMenuItem,
-            this.importMultiframeBitmapToolStripMenuItem});
+            this.importMultiframeBitmapToolStripMenuItem,
+            this.importASPRITEProjectToolStripMenuItem});
             this.dateiToolStripMenuItem1.Name = "dateiToolStripMenuItem1";
             this.dateiToolStripMenuItem1.Size = new System.Drawing.Size(46, 20);
             this.dateiToolStripMenuItem1.Text = "&Datei";
@@ -325,6 +330,7 @@
             // 
             // tabPage3
             // 
+            this.tabPage3.Controls.Add(this.ase_auto_import_cbx);
             this.tabPage3.Controls.Add(this.button5);
             this.tabPage3.Controls.Add(this.button4);
             this.tabPage3.Controls.Add(this.label3);
@@ -339,6 +345,26 @@
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "SETTINGS";
             this.tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // button5
+            // 
+            this.button5.Location = new System.Drawing.Point(17, 347);
+            this.button5.Name = "button5";
+            this.button5.Size = new System.Drawing.Size(167, 23);
+            this.button5.TabIndex = 7;
+            this.button5.Text = "SELECT ALL";
+            this.button5.UseVisualStyleBackColor = true;
+            this.button5.Click += new System.EventHandler(this.button5_Click);
+            // 
+            // button4
+            // 
+            this.button4.Location = new System.Drawing.Point(17, 318);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(167, 23);
+            this.button4.TabIndex = 6;
+            this.button4.Text = "UNSELECT ALL";
+            this.button4.UseVisualStyleBackColor = true;
+            this.button4.Click += new System.EventHandler(this.button4_Click);
             // 
             // label3
             // 
@@ -420,25 +446,30 @@
             // 
             this.openFileDialog1.FileName = "openFileDialog1";
             // 
-            // button4
+            // importASPRITEProjectToolStripMenuItem
             // 
-            this.button4.Location = new System.Drawing.Point(17, 318);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(167, 23);
-            this.button4.TabIndex = 6;
-            this.button4.Text = "UNSELECT ALL";
-            this.button4.UseVisualStyleBackColor = true;
-            this.button4.Click += new System.EventHandler(this.button4_Click);
+            this.importASPRITEProjectToolStripMenuItem.Name = "importASPRITEProjectToolStripMenuItem";
+            this.importASPRITEProjectToolStripMenuItem.Size = new System.Drawing.Size(213, 22);
+            this.importASPRITEProjectToolStripMenuItem.Text = "Import ASPRITE Project";
+            this.importASPRITEProjectToolStripMenuItem.Click += new System.EventHandler(this.importASPRITEProjectToolStripMenuItem_Click);
             // 
-            // button5
+            // fileSystemWatcher1
             // 
-            this.button5.Location = new System.Drawing.Point(17, 347);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(167, 23);
-            this.button5.TabIndex = 7;
-            this.button5.Text = "SELECT ALL";
-            this.button5.UseVisualStyleBackColor = true;
-            this.button5.Click += new System.EventHandler(this.button5_Click);
+            this.fileSystemWatcher1.EnableRaisingEvents = true;
+            this.fileSystemWatcher1.SynchronizingObject = this;
+            this.fileSystemWatcher1.Changed += new System.IO.FileSystemEventHandler(this.fileSystemWatcher1_Changed);
+            // 
+            // ase_auto_import_cbx
+            // 
+            this.ase_auto_import_cbx.AutoSize = true;
+            this.ase_auto_import_cbx.Checked = true;
+            this.ase_auto_import_cbx.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.ase_auto_import_cbx.Location = new System.Drawing.Point(53, 400);
+            this.ase_auto_import_cbx.Name = "ase_auto_import_cbx";
+            this.ase_auto_import_cbx.Size = new System.Drawing.Size(125, 17);
+            this.ase_auto_import_cbx.TabIndex = 8;
+            this.ase_auto_import_cbx.Text = "ASE AUTO IMPORT";
+            this.ase_auto_import_cbx.UseVisualStyleBackColor = true;
             // 
             // Form1
             // 
@@ -466,6 +497,7 @@
             this.tabPage3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.matrix_size_widht)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.matrix_size_height)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.fileSystemWatcher1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -509,6 +541,9 @@
         private System.Windows.Forms.ColorDialog colorDialog1;
         private System.Windows.Forms.Button button4;
         private System.Windows.Forms.Button button5;
+        private System.Windows.Forms.ToolStripMenuItem importASPRITEProjectToolStripMenuItem;
+        private System.IO.FileSystemWatcher fileSystemWatcher1;
+        private System.Windows.Forms.CheckBox ase_auto_import_cbx;
     }
 }
 

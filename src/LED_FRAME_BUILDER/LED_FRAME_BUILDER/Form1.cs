@@ -621,7 +621,7 @@ private bool AreColorsSimilar(Color c1, Color c2, int tolerance)
 
             }
 
-           
+            current_selected_layer = 0;
             //TODO REPLACE WITH REF IN STRUCT
             for (int i = 0; i < (int)matrix_size_widht.Value; i++)
             {
@@ -821,6 +821,64 @@ private bool AreColorsSimilar(Color c1, Color c2, int tolerance)
             {
                 exp_layer_cboxlist.SetItemCheckState(i, CheckState.Checked);
             }
+        }
+
+        private void importASPRITEProjectToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            //OPEN FILE
+            //SET WATCHDOG
+            openFileDialog1.FileName = "";
+            openFileDialog1.Filter = "ASPRITE (.ase) | *.ase";
+            if (openFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+
+                if (!openFileDialog1.CheckFileExists)
+                {
+                    MessageBox.Show("ASE FILE ERROR DONT EXISTS");
+                    return;
+                }
+                //SETUP FILE WATCHER
+                fileSystemWatcher1.Path = Path.GetDirectoryName(openFileDialog1.FileName);
+                fileSystemWatcher1.Filter = Path.GetFileName(openFileDialog1.FileName);
+                fileSystemWatcher1.EnableRaisingEvents = true;
+                ase_path = openFileDialog1.FileName;
+                import_ase(false);
+            }
+            
+        }
+
+        bool ase_import_complete = true;
+        string ase_path = "";
+        private void fileSystemWatcher1_Changed(object sender, FileSystemEventArgs e)
+        {
+            import_ase(true);
+        }
+
+
+
+        private void import_ase(bool _from_wd = false)
+        {
+            if (!ase_auto_import_cbx.Checked && _from_wd)
+            {
+                return;
+            }
+
+            if (!ase_import_complete)
+            {
+                MessageBox.Show("ASE IMPORT NOT FINISHED");
+                return;
+            }
+            ase_import_complete = false;
+            //check path 
+            //check bool
+            byte[] fileBytes = File.ReadAllBytes(ase_path);
+
+
+            //https://github.com/aseprite/aseprite/blob/master/docs/files/ase.txt
+
+
+            ase_import_complete = true;
+            return;
         }
     }
 }
