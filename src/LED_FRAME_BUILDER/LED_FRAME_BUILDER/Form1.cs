@@ -8,6 +8,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
+using System.Runtime.InteropServices;
+
 namespace LED_FRAME_BUILDER
 {
     public partial class Form1 : Form
@@ -854,7 +856,80 @@ private bool AreColorsSimilar(Color c1, Color c2, int tolerance)
             import_ase(true);
         }
 
+        static object ByteArrayToStruct(byte[] array, int offset, Type structType)
+        {
+            if (structType.StructLayoutAttribute.Value != LayoutKind.Sequential)
+                throw new ArgumentException("structType ist keine Struktur oder nicht Sequentiell.");
 
+            int size = Marshal.SizeOf(structType);
+
+
+            byte[] tmp = new byte[size];
+
+            if (offset > 0)
+                Array.Copy(array, offset, tmp, 0, size);
+            else
+                tmp = array;
+
+            GCHandle structHandle = GCHandle.Alloc(tmp, GCHandleType.Pinned);
+            object structure = Marshal.PtrToStructure(structHandle.AddrOfPinnedObject(), structType);
+            structHandle.Free();
+
+            return structure;
+        }
+        [StructLayout(LayoutKind.Sequential)]
+        struct ASE_HEADER
+        {
+            public UInt32 file_size;
+            public UInt16 magic_number;
+            public UInt16 frames;
+            public UInt16 widht;
+            public UInt16 height;
+            public UInt16 color_depth; //32 = RGBA 16 = GRAY 8 INDEXED
+            public UInt32 flags;
+            public UInt16 speed;
+            public UInt32 reserved_0;
+            public UInt32 reserved_1;
+            public Byte palette_index;
+            public byte[] reserved_2;
+            public UInt16 num_colors;
+            public byte[] reserved_3;
+        };
+        private void init_ase_header(ref ASE_HEADER _h)
+        {
+            _h.file_size = 0;
+            _h.magic_number = 0;
+            _h.frames = 0;
+            _h.widht = 0;
+            _h.height = 0;
+            _h.color_depth = 0;
+            _h.flags = 0;
+            _h.speed = 0;
+            _h.reserved_0 = 0;
+            _h.reserved_1 = 0;
+            _h.palette_index = 0;
+            _h.reserved_2 = new byte[3];
+            _h.num_colors = 0;
+            _h.reserved_3 = new byte[94];
+        }
+
+        [StructLayout(LayoutKind.Sequential)]
+        struct ASE_FRAME_HEADER
+        {
+            public UInt32 byte_per_frame;
+            public UInt16 magic_number;
+            public UInt16 chunks;
+            public UInt16 frame_duration;
+            public byte[] reserved; //6 bytes
+        };
+        private void init_ase_frame_header(ref ASE_FRAME_HEADER _h)
+        {
+            _h.byte_per_frame = 0;
+            _h.magic_number = 0;
+            _h.chunks = 0;
+            _h.frame_duration = 100;
+            _h.reserved = new byte[3];
+        }
 
         private void import_ase(bool _from_wd = false)
         {
@@ -862,19 +937,54 @@ private bool AreColorsSimilar(Color c1, Color c2, int tolerance)
             {
                 return;
             }
-
             if (!ase_import_complete)
             {
                 MessageBox.Show("ASE IMPORT NOT FINISHED");
                 return;
             }
+
             ase_import_complete = false;
-            //check path 
-            //check bool
-            byte[] fileBytes = File.ReadAllBytes(ase_path);
+            int byte_read_offset = 0;
+                
+            byte[] buffer = File.ReadAllBytes(ase_path);
 
 
             //https://github.com/aseprite/aseprite/blob/master/docs/files/ase.txt
+
+            ASE_HEADER file_head = new ASE_HEADER();
+            init_ase_header(ref file_head);
+            file_head = (ASE_HEADER)ByteArrayToStruct(buffer, byte_read_offset, typeof(ASE_HEADER));
+            if(file_head.magic_number != 42464)
+            {
+                MessageBox.Show("ASE IMPORT FAILED - MAGIC NUMBER WRONG - AUTO IMPORT DISBALED");
+                ase_auto_import_cbx.Checked = false;
+                return;
+
+            }
+            if(file_head.frames <= 0)
+            {
+                MessageBox.Show("ASE IMPORT FAILED - NO FRAMES AVARIABLE");
+                    return;
+            }
+            byte_read_offset += 128; //pos after file head
+
+            for (int frame_head_counter = 0; frame_head_counter < file_head.frames; frame_head_counter++)
+            {
+                ASE_FRAME_HEADER current_frame_header = new ASE_FRAME_HEADER();
+                current_frame_header = (ASE_FRAME_HEADER)ByteArrayToStruct(buffer, byte_read_offset, typeof(ASE_FRAME_HEADER));
+                byte_read_offset += 16;
+                if (current_frame_header.magic_number != 61946)
+                {
+                    MessageBox.Show("ASE IMPORT FAILED - INVALID FRAME DATA");
+                    return;
+                }
+                int bla = 0;
+                //read chunk data
+
+
+            }
+
+
 
 
             ase_import_complete = true;
