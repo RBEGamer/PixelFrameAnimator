@@ -990,5 +990,35 @@ private bool AreColorsSimilar(Color c1, Color c2, int tolerance)
             ase_import_complete = true;
             return;
         }
+        //EXPORT BMP
+        private void exportAsBMPToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if(layers.Count <= 0)
+            {
+                MessageBox.Show("EXPORT BMP FAILED - NO LAYERS TO EXPORT");
+            }
+
+            Bitmap exp_bmp = new Bitmap(matrix_size_w, matrix_size_h * layers.Count);//, 0, System.Drawing.Imaging.PixelFormat.Format32bppRgb, 0);
+            for (int i = 0; i < layers.Count; i++)
+            {
+                for (int x = 0; x < matrix_size_w; x++)
+                {
+                    for (int y = 0; y < matrix_size_h; y++)
+                    {
+
+
+                        exp_bmp.SetPixel(x, y + (i*matrix_size_h), colors[layers[i].matrix_cid[x, y]]);
+
+                    }
+                }
+            }
+            saveFileDialog1.FileName = "";
+            saveFileDialog1.Filter = "BMP (.bmp) | *.bmp";
+            if (saveFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+
+                exp_bmp.Save(saveFileDialog1.FileName);
+            }
+        }
     }
 }

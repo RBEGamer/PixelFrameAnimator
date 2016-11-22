@@ -37,6 +37,7 @@
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.openBMPToLayerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.importMultiframeBitmapToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.importASPRITEProjectToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.addColorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tabControl1 = new System.Windows.Forms.TabControl();
@@ -53,6 +54,7 @@
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.color_chooser = new System.Windows.Forms.Panel();
             this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.ase_auto_import_cbx = new System.Windows.Forms.CheckBox();
             this.button5 = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
@@ -65,9 +67,8 @@
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.colorDialog1 = new System.Windows.Forms.ColorDialog();
-            this.importASPRITEProjectToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.fileSystemWatcher1 = new System.IO.FileSystemWatcher();
-            this.ase_auto_import_cbx = new System.Windows.Forms.CheckBox();
+            this.exportAsBMPToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -100,7 +101,8 @@
             this.toolStripSeparator1,
             this.openBMPToLayerToolStripMenuItem,
             this.importMultiframeBitmapToolStripMenuItem,
-            this.importASPRITEProjectToolStripMenuItem});
+            this.importASPRITEProjectToolStripMenuItem,
+            this.exportAsBMPToolStripMenuItem});
             this.dateiToolStripMenuItem1.Name = "dateiToolStripMenuItem1";
             this.dateiToolStripMenuItem1.Size = new System.Drawing.Size(46, 20);
             this.dateiToolStripMenuItem1.Text = "&Datei";
@@ -154,6 +156,13 @@
             this.importMultiframeBitmapToolStripMenuItem.Size = new System.Drawing.Size(213, 22);
             this.importMultiframeBitmapToolStripMenuItem.Text = "Import Multiframe Bitmap";
             this.importMultiframeBitmapToolStripMenuItem.Click += new System.EventHandler(this.importMultiframeBitmapToolStripMenuItem_Click);
+            // 
+            // importASPRITEProjectToolStripMenuItem
+            // 
+            this.importASPRITEProjectToolStripMenuItem.Name = "importASPRITEProjectToolStripMenuItem";
+            this.importASPRITEProjectToolStripMenuItem.Size = new System.Drawing.Size(213, 22);
+            this.importASPRITEProjectToolStripMenuItem.Text = "Import ASPRITE Project";
+            this.importASPRITEProjectToolStripMenuItem.Click += new System.EventHandler(this.importASPRITEProjectToolStripMenuItem_Click);
             // 
             // editToolStripMenuItem
             // 
@@ -346,6 +355,18 @@
             this.tabPage3.Text = "SETTINGS";
             this.tabPage3.UseVisualStyleBackColor = true;
             // 
+            // ase_auto_import_cbx
+            // 
+            this.ase_auto_import_cbx.AutoSize = true;
+            this.ase_auto_import_cbx.Checked = true;
+            this.ase_auto_import_cbx.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.ase_auto_import_cbx.Location = new System.Drawing.Point(53, 400);
+            this.ase_auto_import_cbx.Name = "ase_auto_import_cbx";
+            this.ase_auto_import_cbx.Size = new System.Drawing.Size(125, 17);
+            this.ase_auto_import_cbx.TabIndex = 8;
+            this.ase_auto_import_cbx.Text = "ASE AUTO IMPORT";
+            this.ase_auto_import_cbx.UseVisualStyleBackColor = true;
+            // 
             // button5
             // 
             this.button5.Location = new System.Drawing.Point(17, 347);
@@ -446,30 +467,18 @@
             // 
             this.openFileDialog1.FileName = "openFileDialog1";
             // 
-            // importASPRITEProjectToolStripMenuItem
-            // 
-            this.importASPRITEProjectToolStripMenuItem.Name = "importASPRITEProjectToolStripMenuItem";
-            this.importASPRITEProjectToolStripMenuItem.Size = new System.Drawing.Size(213, 22);
-            this.importASPRITEProjectToolStripMenuItem.Text = "Import ASPRITE Project";
-            this.importASPRITEProjectToolStripMenuItem.Click += new System.EventHandler(this.importASPRITEProjectToolStripMenuItem_Click);
-            // 
             // fileSystemWatcher1
             // 
             this.fileSystemWatcher1.EnableRaisingEvents = true;
             this.fileSystemWatcher1.SynchronizingObject = this;
             this.fileSystemWatcher1.Changed += new System.IO.FileSystemEventHandler(this.fileSystemWatcher1_Changed);
             // 
-            // ase_auto_import_cbx
+            // exportAsBMPToolStripMenuItem
             // 
-            this.ase_auto_import_cbx.AutoSize = true;
-            this.ase_auto_import_cbx.Checked = true;
-            this.ase_auto_import_cbx.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.ase_auto_import_cbx.Location = new System.Drawing.Point(53, 400);
-            this.ase_auto_import_cbx.Name = "ase_auto_import_cbx";
-            this.ase_auto_import_cbx.Size = new System.Drawing.Size(125, 17);
-            this.ase_auto_import_cbx.TabIndex = 8;
-            this.ase_auto_import_cbx.Text = "ASE AUTO IMPORT";
-            this.ase_auto_import_cbx.UseVisualStyleBackColor = true;
+            this.exportAsBMPToolStripMenuItem.Name = "exportAsBMPToolStripMenuItem";
+            this.exportAsBMPToolStripMenuItem.Size = new System.Drawing.Size(213, 22);
+            this.exportAsBMPToolStripMenuItem.Text = "Export as BMP";
+            this.exportAsBMPToolStripMenuItem.Click += new System.EventHandler(this.exportAsBMPToolStripMenuItem_Click);
             // 
             // Form1
             // 
@@ -544,6 +553,7 @@
         private System.Windows.Forms.ToolStripMenuItem importASPRITEProjectToolStripMenuItem;
         private System.IO.FileSystemWatcher fileSystemWatcher1;
         private System.Windows.Forms.CheckBox ase_auto_import_cbx;
+        private System.Windows.Forms.ToolStripMenuItem exportAsBMPToolStripMenuItem;
     }
 }
 
