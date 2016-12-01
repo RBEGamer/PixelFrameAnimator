@@ -877,6 +877,18 @@ private bool AreColorsSimilar(Color c1, Color c2, int tolerance)
 
             return structure;
         }
+
+
+        //ASE IMPORT SECTION 
+
+
+        struct ASE_PARSED_PROJECT
+        {
+            public int frame_count;
+
+
+        }
+
         [StructLayout(LayoutKind.Sequential)]
         struct ASE_HEADER
         {
@@ -931,6 +943,58 @@ private bool AreColorsSimilar(Color c1, Color c2, int tolerance)
             _h.reserved = new byte[3];
         }
 
+        [StructLayout(LayoutKind.Sequential)]
+        struct ASE_CHUNK_HEAD
+        {
+            public UInt32 chunk_size;
+            public UInt16 chunk_type; // layer 0x2004 cell 0x2005  mask 0x2016 frame tag 0x2018 user data 0x2020 palette 0x2019
+        }
+
+        enum ASE_CHUNK_TYPE
+        {
+            INVLAID, OLD_PALETTE, PALETTE, LAYER, CELL, USER_DATA, MASK, PATH, FRAME_TAG
+        }
+        [StructLayout(LayoutKind.Sequential)]
+        struct ASE_CHUNK
+        {
+            public ASE_CHUNK_HEAD chunk_head;
+            public ASE_CHUNK_TYPE chunk_type;
+            public byte[] chunk_data;
+        }
+
+        struct ASE_STRING
+        {
+            public UInt16 lenght;
+            public byte[] string_data;
+        }
+        struct CHUNK_DESC_LAYER
+        {
+            public UInt16 flags;
+            public UInt16 type; //normal = 0 1= layer set
+            public UInt16 child_level;
+            public UInt16 layer_w; //ignore
+            public UInt16 layer_h; //ignore
+            public UInt16 blend_mode; //normal, apply,... 0 if layer set
+            public byte opacity;
+            public byte[] reserved;
+            public ASE_STRING layer_name;
+        }
+        void init_chunk_desc_layer(ref CHUNK_DESC_LAYER _ref)
+        {
+            _ref.flags = 0;
+            _ref.type = 0;
+            _ref.child_level = 0;
+            _ref.layer_w = 0;
+            _ref.layer_h = 0;
+            _ref.blend_mode = 0;
+            _ref.opacity = 0;
+            _ref.reserved = new byte[3];
+            _ref.layer_name = new ASE_STRING();
+            _ref.layer_name.lenght = 0;
+            _ref.layer_name.string_data = new byte[1];
+            _ref.layer_name.string_data[0] = (byte)'\0';
+        }
+
         private void import_ase(bool _from_wd = false)
         {
             if (!ase_auto_import_cbx.Checked && _from_wd)
@@ -978,10 +1042,67 @@ private bool AreColorsSimilar(Color c1, Color c2, int tolerance)
                     MessageBox.Show("ASE IMPORT FAILED - INVALID FRAME DATA");
                     return;
                 }
-                int bla = 0;
-                //read chunk data
+                for (int j = 0; j < current_frame_header.chunks; j++)
+                {
+
+              
+                //read chunk data in loop ! TODO
+                ASE_CHUNK curr_chunk = new ASE_CHUNK();
+                curr_chunk.chunk_head = new ASE_CHUNK_HEAD();
+                curr_chunk.chunk_head = (ASE_CHUNK_HEAD)ByteArrayToStruct(buffer, byte_read_offset, typeof(ASE_CHUNK_HEAD));
+                //byte_read_offset += 6;
+                curr_chunk.chunk_data = new byte[curr_chunk.chunk_head.chunk_size];
+
+                //SWITCH TYPE AND CREARTE TYPE
+                switch (curr_chunk.chunk_head.chunk_type)
+                {
+                    case 4:
+                        curr_chunk.chunk_type = ASE_CHUNK_TYPE.OLD_PALETTE;
+                        break;
+                    case 8196:
+                        curr_chunk.chunk_type = ASE_CHUNK_TYPE.LAYER;
+                        break;
+                    case 8197:
+                        curr_chunk.chunk_type = ASE_CHUNK_TYPE.CELL;
+                        break;
+                    case 8214:
+                        curr_chunk.chunk_type = ASE_CHUNK_TYPE.MASK;
+                        break;
+                    case 8215:
+                        curr_chunk.chunk_type = ASE_CHUNK_TYPE.PATH;
+                        break;
+                    case 2016:
+                        curr_chunk.chunk_type = ASE_CHUNK_TYPE.FRAME_TAG;
+                        break;
+                    case 8217:
+                        curr_chunk.chunk_type = ASE_CHUNK_TYPE.PALETTE;
+                        break;
+                    case 8224:
+                        curr_chunk.chunk_type = ASE_CHUNK_TYPE.USER_DATA;
+                        break;
+                    default:
+                        curr_chunk.chunk_type = ASE_CHUNK_TYPE.INVLAID;
+                        break;
+                }
+
+                //WRITE BYTES TO DATA BLOB
+                curr_chunk.chunk_data = new byte[curr_chunk.chunk_head.chunk_size];
+                for (int i = 0; i < curr_chunk.chunk_head.chunk_size; i++)
+                {
+                    curr_chunk.chunk_data[i] = buffer[byte_read_offset + i];
+                }
 
 
+                byte_read_offset += (int)curr_chunk.chunk_head.chunk_size;
+
+                int blva = 0;
+                    //TODO chunk zur chunklist hinzufügen
+                }
+
+
+
+                //} loop ende
+                //= chunks loaded = frame fertig = frame zut frames list hinzufügen
             }
 
 
