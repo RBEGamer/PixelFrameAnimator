@@ -7,10 +7,24 @@ https://github.com/RBEGamer/WeatherFrame
 * Easy pixelart creation up to 256x256 pixels.
 * Singleframe BMP import
 * Multiframe BMP import
-* Colortable creator
+* Colortable creator/editor
 * Export directly to the WeatherFrame
 * ASCII and BINARY export modes
 * RAM space calculator
+* Export frames as multiframe BMP
+
+# IMPORT RESTRICTIONS
+
+## SINGLE FRAME BMP
+* the size must be equal with the matrix size in the settings
+
+## MULTI FRAME BMP
+* the single frames must have the size of the matrix (see settings tab)
+* support multi row/collum
+
+## ASE (ASEPRITE) PROJECT IMPORT
+* Imports only the new ASE project files ( Aseprite > V1.2)
+* Currently only projects in RGB Mode, no masks, blend mode = normal
 
 # SCREENSHOTS
 ### SAMPLE FRAME
