@@ -9,6 +9,8 @@ https://github.com/RBEGamer/WeatherFrame
 * Multiframe BMP import
 * Colortable creator
 * Export directly to the WeatherFrame
+* ASCII and BINARY export modes
+* RAM space calculator
 
 # SCREENSHOTS
 ### SAMPLE FRAME
