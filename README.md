@@ -1,6 +1,6 @@
 # PixelFrameAnimator
-A animation design tool for the weather frame.
-Please thee the WeaterhFrame project
+A animation design tool for the weather frame project.
+Please see the WeaterhFrame project:
 https://github.com/RBEGamer/WeatherFrame
 
 # FEATURES
@@ -17,7 +17,10 @@ https://github.com/RBEGamer/WeatherFrame
 ### COLOR TABLE AND CUSTOM COLORS
 ![Gopher image](/documentation/screenshots/sample_2_add_custom_color.PNG)
 
-### SAMPLE EXPORTED DATA [ASCII MODE, V1]
+### SAMPLE EXPORTED DATA [ASCII MODE, COLORTABLE, V1]
 ![Gopher image](/documentation/screenshots/sample_3_exported_data.PNG)
 
 
+# TODO
+* add ASE import
+* create .net core export library
