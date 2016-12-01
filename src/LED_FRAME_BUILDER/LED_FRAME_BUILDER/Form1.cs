@@ -115,9 +115,6 @@ private bool AreColorsSimilar(Color c1, Color c2, int tolerance)
  {
              return Math.Abs(c1.R - c2.R) < tolerance && Math.Abs(c1.G - c2.G) < tolerance && Math.Abs(c1.B - c2.B) < tolerance;
  }
-
-
-
         private void export_layers()
         {
             //get sel layer coutn
@@ -200,7 +197,6 @@ private bool AreColorsSimilar(Color c1, Color c2, int tolerance)
                 MessageBox.Show("EXPORT FAILED");
             }
         }
-
         private void import_layers()
         {
             layers.Clear();
@@ -880,13 +876,11 @@ private bool AreColorsSimilar(Color c1, Color c2, int tolerance)
 
 
         //ASE IMPORT SECTION 
-
-
         struct ASE_PARSED_PROJECT
         {
-            public int frame_count;
-
-
+            public int frame_id;
+            public ASE_FRAME_HEADER frame_info;
+            public List<ASE_CHUNK> chunks;
         }
 
         [StructLayout(LayoutKind.Sequential)]
@@ -967,6 +961,8 @@ private bool AreColorsSimilar(Color c1, Color c2, int tolerance)
             public UInt16 lenght;
             public byte[] string_data;
         }
+
+        //CHUNK STRUCTS
         struct CHUNK_DESC_LAYER
         {
             public UInt16 flags;
@@ -979,6 +975,12 @@ private bool AreColorsSimilar(Color c1, Color c2, int tolerance)
             public byte[] reserved;
             public ASE_STRING layer_name;
         }
+
+
+
+        //---------------ASE VARS-----------------
+        List<ASE_PARSED_PROJECT> ase_parsed_frames = new List<ASE_PARSED_PROJECT>();
+
         void init_chunk_desc_layer(ref CHUNK_DESC_LAYER _ref)
         {
             _ref.flags = 0;
@@ -1030,6 +1032,8 @@ private bool AreColorsSimilar(Color c1, Color c2, int tolerance)
                 MessageBox.Show("ASE IMPORT FAILED - NO FRAMES AVARIABLE");
                     return;
             }
+
+            ase_parsed_frames.Clear();
             byte_read_offset += 128; //pos after file head
 
             for (int frame_head_counter = 0; frame_head_counter < file_head.frames; frame_head_counter++)
@@ -1042,24 +1046,28 @@ private bool AreColorsSimilar(Color c1, Color c2, int tolerance)
                     MessageBox.Show("ASE IMPORT FAILED - INVALID FRAME DATA");
                     return;
                 }
+
+                List<ASE_CHUNK> chunks_list = new List<ASE_CHUNK>();
+                //FOR EACH CHUNK
                 for (int j = 0; j < current_frame_header.chunks; j++)
                 {
-
-              
-                //read chunk data in loop ! TODO
                 ASE_CHUNK curr_chunk = new ASE_CHUNK();
                 curr_chunk.chunk_head = new ASE_CHUNK_HEAD();
+                //READ CHUNK DATA
                 curr_chunk.chunk_head = (ASE_CHUNK_HEAD)ByteArrayToStruct(buffer, byte_read_offset, typeof(ASE_CHUNK_HEAD));
-                //byte_read_offset += 6;
+                //READ CHUNK DATA
                 curr_chunk.chunk_data = new byte[curr_chunk.chunk_head.chunk_size];
-
+                    
                 //SWITCH TYPE AND CREARTE TYPE
                 switch (curr_chunk.chunk_head.chunk_type)
                 {
                     case 4:
                         curr_chunk.chunk_type = ASE_CHUNK_TYPE.OLD_PALETTE;
                         break;
-                    case 8196:
+                    case 17:
+                        curr_chunk.chunk_type = ASE_CHUNK_TYPE.OLD_PALETTE;
+                        break;
+                        case 8196:
                         curr_chunk.chunk_type = ASE_CHUNK_TYPE.LAYER;
                         break;
                     case 8197:
@@ -1084,30 +1092,25 @@ private bool AreColorsSimilar(Color c1, Color c2, int tolerance)
                         curr_chunk.chunk_type = ASE_CHUNK_TYPE.INVLAID;
                         break;
                 }
-
                 //WRITE BYTES TO DATA BLOB
                 curr_chunk.chunk_data = new byte[curr_chunk.chunk_head.chunk_size];
                 for (int i = 0; i < curr_chunk.chunk_head.chunk_size; i++)
                 {
                     curr_chunk.chunk_data[i] = buffer[byte_read_offset + i];
                 }
-
-
+                //SET OFFSET TO NEXT CHUNK START
                 byte_read_offset += (int)curr_chunk.chunk_head.chunk_size;
-
-                int blva = 0;
-                    //TODO chunk zur chunklist hinzufügen
+                //ADD PARSED CHUNK TO LIST
+                chunks_list.Add(curr_chunk);
                 }
-
-
-
-                //} loop ende
-                //= chunks loaded = frame fertig = frame zut frames list hinzufügen
+                //SAVE DATA AS NEW COMBINED
+                ASE_PARSED_PROJECT tmp_frame = new ASE_PARSED_PROJECT();
+                tmp_frame.frame_id = frame_head_counter;
+                tmp_frame.frame_info = current_frame_header;
+                tmp_frame.chunks = chunks_list;
+                //SAVE IN FRAME STORE
+                ase_parsed_frames.Add(tmp_frame);
             }
-
-
-
-
             ase_import_complete = true;
             return;
         }
@@ -1141,5 +1144,33 @@ private bool AreColorsSimilar(Color c1, Color c2, int tolerance)
                 exp_bmp.Save(saveFileDialog1.FileName);
             }
         }
+
+
+        /* TODO
+         * 
+         * 
+         * für deden chunk typ einen header bauen
+         * dann für jede chunk typ eine funktion bauen die ASE_PARSED_PROJECT in den passenden frame umwandelt
+         * 
+         * funktion ase project to layers diese dann auch im filewatcher aufrufen
+         * -> color table bauen // wenn transparent dann mit hintergrundfarbe füllen
+         * 
+         * neues dateiformat einführen
+         * Ascii und binary
+         * ->weather frame ard sketch neues parsing einführen
+         * 
+         * serial connection mode stream von frame direcly to the weather frame
+         * 
+         * */
+
+
+        bool get_ase_specific_chunk(ASE_PARSED_PROJECT _ase_parsed_project, Type _chunk_type, int _from_layer)
+        {
+            return false;
+        }
+
+
+
+
     }
 }
