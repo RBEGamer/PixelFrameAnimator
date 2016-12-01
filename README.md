@@ -33,7 +33,7 @@ https://github.com/RBEGamer/WeatherFrame
 ### COLOR TABLE AND CUSTOM COLORS
 ![Gopher image](/documentation/screenshots/sample_2_add_custom_color.PNG)
 
-### SAMPLE EXPORTED DATA [ASCII MODE, COLORTABLE, V1]
+### SAMPLE EXPORTED DATA [ASCII MODE, COLORTABLE, HEADER V1 8Byte]
 ![Gopher image](/documentation/screenshots/sample_3_exported_data.PNG)
 
 
