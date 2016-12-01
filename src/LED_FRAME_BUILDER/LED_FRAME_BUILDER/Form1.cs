@@ -962,6 +962,13 @@ private bool AreColorsSimilar(Color c1, Color c2, int tolerance)
             public byte[] string_data;
         }
 
+        [StructLayout(LayoutKind.Sequential)]
+        struct ASE_PIXEL
+        {
+            byte r;
+            byte g;
+            byte b;
+        }
         //CHUNK STRUCTS
         struct CHUNK_DESC_LAYER
         {
@@ -975,12 +982,6 @@ private bool AreColorsSimilar(Color c1, Color c2, int tolerance)
             public byte[] reserved;
             public ASE_STRING layer_name;
         }
-
-
-
-        //---------------ASE VARS-----------------
-        List<ASE_PARSED_PROJECT> ase_parsed_frames = new List<ASE_PARSED_PROJECT>();
-
         void init_chunk_desc_layer(ref CHUNK_DESC_LAYER _ref)
         {
             _ref.flags = 0;
@@ -997,6 +998,79 @@ private bool AreColorsSimilar(Color c1, Color c2, int tolerance)
             _ref.layer_name.string_data[0] = (byte)'\0';
         }
 
+
+        struct CHUNK_DESC_PALETTE_ENTRY
+        {
+            public UInt16 has_name;
+            public byte R;
+            public byte G;
+            public byte B;
+            public ASE_STRING name;
+        }
+        [StructLayout(LayoutKind.Sequential)]
+        struct CHUNK_DESC_PALETTE
+        {
+            public UInt32 num_colors;
+            public UInt32 first_index;
+            public UInt32 last_index;
+            public byte[] reserved; //8byte
+            public CHUNK_DESC_PALETTE_ENTRY[] entries;
+        }
+
+        void init_chunk_desc_palette(CHUNK_DESC_PALETTE _ref)
+        {
+            _ref.num_colors = 0;
+            _ref.first_index = 0;
+            _ref.last_index = 0;
+            _ref.reserved = new byte[8];
+            _ref.entries = null;
+        }
+        void init_chunk_desc_palette_entry(CHUNK_DESC_PALETTE_ENTRY _ref)
+        {
+            _ref.has_name = 0; //1 has name
+            _ref.R = 0;
+            _ref.G = 0;
+            _ref.B = 0;
+            _ref.name = new ASE_STRING();
+            _ref.name.lenght = 0;
+            _ref.name.string_data = new byte[1];
+            _ref.name.string_data[0] = '\0';
+        }
+
+
+        struct CHUNK_DESC_PALETTE_CELL_RAW
+        {
+            public UInt16 layer_index;
+            public Int16 pos_x;
+            public Int16 pos_y;
+            public byte opacity_level;
+            public UInt16 cell_type;
+            public byte[] reserved; //7 byte
+
+            //RAW STUFF
+            public UInt16 pixel_height;
+            public UInt16 pixel_width;
+            public ASE_PIXEL[] pixel_data;
+
+        }
+
+        void init_chunk_desc_cell_raw(CHUNK_DESC_PALETTE_CELL_RAW _ref)
+        {
+            //TODO IMPPLEMENT
+        }
+
+        //ADD CELL LINKED
+        //ADD CELL COMPRESSEED
+
+            //ADD USERDATA
+            //ADDFRAME TAGS
+
+
+
+        //---------------ASE VARS-----------------
+        List<ASE_PARSED_PROJECT> ase_parsed_frames = new List<ASE_PARSED_PROJECT>();
+
+    
         private void import_ase(bool _from_wd = false)
         {
             if (!ase_auto_import_cbx.Checked && _from_wd)
@@ -1150,6 +1224,7 @@ private bool AreColorsSimilar(Color c1, Color c2, int tolerance)
          * 
          * 
          * für deden chunk typ einen header bauen
+         * ->mit init funktion
          * dann für jede chunk typ eine funktion bauen die ASE_PARSED_PROJECT in den passenden frame umwandelt
          * 
          * funktion ase project to layers diese dann auch im filewatcher aufrufen
