@@ -23,8 +23,9 @@ https://github.com/RBEGamer/WeatherFrame
 * support multi row/collum
 
 ## ASE (ASEPRITE) PROJECT IMPORT
+The ASE imported is WIP!
 * Imports only the new ASE project files ( Aseprite > V1.2)
-* Currently only projects in RGB Mode, no masks, blend mode = normal
+* Currently only projects in RGB Mode (raw, not compressed), no masks (will be ignored), blend mode = normal
 
 # SCREENSHOTS
 ### SAMPLE FRAME
@@ -38,5 +39,4 @@ https://github.com/RBEGamer/WeatherFrame
 
 
 # TODO
-* add ASE import
 * create .net core export library
