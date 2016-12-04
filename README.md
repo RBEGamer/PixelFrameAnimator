@@ -1,5 +1,6 @@
 # PixelFrameAnimator
 A animation design tool for the weather frame project.
+But with the easy to parse export formats, you can it use easily in other projects
 Please see the WeaterhFrame project:
 https://github.com/RBEGamer/WeatherFrame
 
@@ -12,6 +13,7 @@ https://github.com/RBEGamer/WeatherFrame
 * ASCII and BINARY export modes
 * RAM space calculator
 * Export frames as multiframe BMP
+* Different simple ASCII and binary based export formats
 
 # IMPORT RESTRICTIONS
 
