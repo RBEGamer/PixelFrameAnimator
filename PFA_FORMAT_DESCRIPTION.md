@@ -17,4 +17,4 @@ At start of the *.PFA File there must be a line `ASCIIHEADV2` for identifying th
 ### FILE SIZE HEADER
 The new format requires a before parsing, information about the number of colors and layer to allocate the right ram offset values.
 This is an exaple header line : 
-`PFA_ASCIIHEADV2_8_8_10_16_RGB_1_700_48_`
+*  `PFA_ASCIIHEADV2_8_8_10_16_RGB_1_700_48_`
