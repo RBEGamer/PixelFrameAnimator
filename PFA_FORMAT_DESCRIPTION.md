@@ -2,7 +2,7 @@
 
 
 
-# HEADER VERSION 2 (latest) - ASCIIHEADV2
+## HEADER VERSION 2 (latest) - ASCIIHEADV2
 To export the animations in this format please set the `EXPORT FORMAT`- Box to `ASCIIHEADV2`
 
 ### FEATURES
