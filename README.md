@@ -1,6 +1,6 @@
 # PixelFrameAnimator
 A animation design tool for the weather frame project.
-But with the easy to parse export formats, you can it use easily in other projects
+But with the easy to parse export formats, you can it use easily in other projects.
 Please see the WeaterhFrame project:
 https://github.com/RBEGamer/WeatherFrame
 
