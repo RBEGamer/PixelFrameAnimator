@@ -48,7 +48,7 @@ Field explanation from left to right!
 * `8`(1 byte) is the height of the matrix (maximum height, layer height can vary)
 * `10`(1 byte) is the count of layers
 * `16` (1 byte) is the count of used colors
-* `RGB` (char[3]) is the color address mode : can be [`RGB`,`GRB`,`BGR`,`BRG`]
+* `RGB` (char[3]) is the colormode : can be [`RGB`,`GRB`,`BGR`,`BRG`]
 * `1` (1 byte) reserved (parsing datatype)
 * `700` (unsigned int) color table size (=  write offset)
 * `48` (usnigend int) data table size (= write offset)
@@ -61,6 +61,12 @@ Example color line :
 * `COLDEF_1_128_128_128`
 
 #### DETAILED EXPLANATION OF `COLOR DEFINITION`
+* `COLDEF` (char[6]) line is a color definition line (must be `COLDEF`)
+* `0` (1 byte) index of the color
+* `255` is the R amount of the color (0(min) - 255(max)) !! depends on the colormode definition in the `FILE SIZE HEADER` !!
+* `0` is the G amount of the color (0(min) - 255(max)) !! depends on the colormode definition in the `FILE SIZE HEADER` !!
+* `0` is the B amount of the color (0(min) - 255(max)) !! depends on the colormode definition in the `FILE SIZE HEADER` !!
+
 
 ## FRAME DEFINITION
 Describes a complete frame, with FRAME HEADER for size, opcacity and other user data.
