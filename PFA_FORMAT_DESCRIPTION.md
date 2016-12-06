@@ -39,11 +39,9 @@ Field explanation from left to right!
 Describes a complete frame, with FRAME HEADER for size, opcacity and other user data.
 After the FRAME HEADER fllows the data matrix with : height rows and rows collums.
 
-* `FRAME_0_10_8_8_100_255`
-* `<begin data table>`
-* `color_index, color_index, color_index`
-* `color_index, color_index, color_index`
-* `<end data tbale>`
+* `FRAME_0_10_3_2_100_255` (FRAME HEADER)
+* `color_index, color_index, color_index` (FRAME DATA FIELD ROW 0)
+* `color_index, color_index, color_index` (FRAME DATA FIELD ROW 1)
 
 #### DETAILED EXPLANATION OF FRAME HEADER
 Field explanation from left to right!
@@ -51,12 +49,13 @@ Field explanation from left to right!
 * `FRAME` (char[5]) start of a new data frame = magic word must be 'FRAME'
 * `0` (1 byte) id/index of the frame
 * `10` (1 byte) count of frames
-* `8` (1 byte) width of the frame
-* `8` (1 byte) height of the frame
+* `3` (1 byte) width of the frame
+* `2` (1 byte) height of the frame
 * `100` (1 byte) animation speed/delay in ms
 * `255` (1 byte) opacity of the frame : 0 = not visible, 255= 100% visible
 
 
-#### DETAILED EXPLANATION OF FRAME DATE
-After the Header (see below) comes the data filed, filled with color ids and seperated with `,` (collums) and with new line `\n` for the rows
+#### DETAILED EXPLANATION OF FRAME DATA FIELD
+After the Header (see below) comes the data filed, filled with color ids and seperated with `,` (collums) and with new line `\n` for the rows.
+Each cell contains 1 byte for the color index.
 
