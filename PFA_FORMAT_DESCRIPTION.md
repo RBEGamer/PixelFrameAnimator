@@ -22,7 +22,7 @@ To export the animations in this format please set the `EXPORT FORMAT`- Box to `
 * .......
 
 * `FRAME`
-* `FRAME
+* `FRAME`
 * .....
 
 * ------ END OF FILE -----------
@@ -39,7 +39,7 @@ The new format requires a before parsing, information about the number of colors
 This is an example header line :
 *  `PFA_ASCIIHEADV2_8_8_10_16_RGB_1_700_48_`
 
-#### DETAILED EXPLANATION OF FILE SIZE HEADER
+#### DETAILED EXPLANATION OF `FILE SIZE HEADER`
 Field explanation from left to right!
 
 * `PFA` (char[3]) is the magic word, must bew PFA
@@ -53,7 +53,16 @@ Field explanation from left to right!
 * `700` (unsigned int) color table size (=  write offset)
 * `48` (usnigend int) data table size (= write offset)
 
-### FRAME
+
+## COLOR DEFINITION
+A `COLOR DEFINITION` defines a color used in the animation. The color will be accessed by a id, and will be used by the `FRAME DATA FILED`. 
+Example color line :
+* `COLDEF_0_255_0_0`
+* `COLDEF_1_128_128_128`
+
+#### DETAILED EXPLANATION OF `COLOR DEFINITION`
+
+## FRAME DEFINITION
 Describes a complete frame, with FRAME HEADER for size, opcacity and other user data.
 After the FRAME HEADER fllows the data matrix with : height rows and rows collums.
 
@@ -61,7 +70,7 @@ After the FRAME HEADER fllows the data matrix with : height rows and rows collum
 * `color_index, color_index, color_index` (FRAME DATA FIELD ROW 0)
 * `color_index, color_index, color_index` (FRAME DATA FIELD ROW 1)
 
-#### DETAILED EXPLANATION OF FRAME HEADER
+#### DETAILED EXPLANATION OF `FRAME HEADER`
 Field explanation from left to right!
 
 * `FRAME` (char[5]) start of a new data frame = magic word must be 'FRAME'
@@ -73,7 +82,7 @@ Field explanation from left to right!
 * `255` (1 byte) opacity of the frame : 0 = not visible, 255= 100% visible
 
 
-#### DETAILED EXPLANATION OF FRAME DATA FIELD
+#### DETAILED EXPLANATION OF `FRAME DATA FIELD`
 After the Header (see below) comes the data filed, filled with color ids and seperated with `,` (collums) and with new line `\n` for the rows.
 Each cell contains 1 byte for the color index.
 
