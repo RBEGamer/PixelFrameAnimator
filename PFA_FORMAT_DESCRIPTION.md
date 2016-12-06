@@ -13,12 +13,30 @@ To export the animations in this format please set the `EXPORT FORMAT`- Box to `
 * the headers will be split by a `_`
 * the matrix data will be split by a `,`
 
+### GENERAL FILE STRUCTURE
+* ------ START OF FILE -----------
+* FILE VERSION IDENTIFIER line for e.g. `ASCIIHEADV2` (must be at line 0)
+* FILE SIZE HEADER line for file size info (must be at line 1)
+* COLOR DEFINITION
+* COLOR DEFINITION
+* .......
+
+* FRAME
+* FRAME
+* .....
+
+* ------ END OF FILE -----------
+
+
+
+
+
 ### FILE VERSION IDENTIFIER
 At start of the *.PFA File there must be a line `ASCIIHEADV2` for identifying the new format.
 
 ### FILE SIZE HEADER
 The new format requires a before parsing, information about the number of colors and layer to allocate the right ram offset values.
-This is an example header line : 
+This is an example header line :
 *  `PFA_ASCIIHEADV2_8_8_10_16_RGB_1_700_48_`
 
 #### DETAILED EXPLANATION OF FILE SIZE HEADER
@@ -30,7 +48,7 @@ Field explanation from left to right!
 * `8`(1 byte) is the height of the matrix (maximum height, layer height can vary)
 * `10`(1 byte) is the count of layers
 * `16` (1 byte) is the count of used colors
-* `RGB` (char[3]) is the color address mode : can be [RGB,GRB,BGR,BRG]
+* `RGB` (char[3]) is the color address mode : can be [`RGB`,`GRB`,`BGR`,`BRG`]
 * `1` (1 byte) reserved (parsing datatype)
 * `700` (unsigned int) color table size (=  write offset)
 * `48` (usnigend int) data table size (= write offset)
