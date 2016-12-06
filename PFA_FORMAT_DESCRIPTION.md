@@ -15,14 +15,14 @@ To export the animations in this format please set the `EXPORT FORMAT`- Box to `
 
 ### GENERAL FILE STRUCTURE
 * ------ START OF FILE -----------
-* FILE VERSION IDENTIFIER line for e.g. `ASCIIHEADV2` (must be at line 0)
-* FILE SIZE HEADER line for file size info (must be at line 1)
-* COLOR DEFINITION
-* COLOR DEFINITION
+* `FILE VERSION IDENTIFIER` line for e.g. `ASCIIHEADV2` (must be at line 0)
+* `FILE SIZE HEADER` line for file size info (must be at line 1)
+* `COLOR DEFINITION`
+* `COLOR DEFINITION`
 * .......
 
-* FRAME
-* FRAME
+* `FRAME`
+* `FRAME
 * .....
 
 * ------ END OF FILE -----------
