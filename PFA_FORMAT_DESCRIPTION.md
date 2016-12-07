@@ -54,6 +54,7 @@ Field explanation from left to right!
 
 ## COLOR DEFINITION
 A `COLOR DEFINITION` defines a color used in the animation. The color will be accessed by a id, and will be used by the `FRAME DATA FILED`. 
+
 Example color line :
 * `COLDEF_0_255_0_0`
 * `COLDEF_1_128_128_128`
@@ -61,9 +62,10 @@ Example color line :
 #### DETAILED EXPLANATION OF `COLOR DEFINITION`
 * `COLDEF` (char[6]) line is a color definition line (must be `COLDEF`)
 * `0` (1 byte) index of the color
-* `255` is the R amount of the color (0(min) - 255(max)) !! depends on the colormode definition in the `FILE SIZE HEADER` !!
-* `0` is the G amount of the color (0(min) - 255(max)) !! depends on the colormode definition in the `FILE SIZE HEADER` !!
-* `0` is the B amount of the color (0(min) - 255(max)) !! depends on the colormode definition in the `FILE SIZE HEADER` !!
+!! following depends on the colormode definition in the `FILE SIZE HEADER` !!
+* `255` is the R amount of the color (0(min) - 255(max)) 
+* `0` is the G amount of the color (0(min) - 255(max))
+* `0` is the B amount of the color (0(min) - 255(max))
 
 
 ## FRAME DEFINITION
