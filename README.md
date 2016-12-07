@@ -14,6 +14,14 @@ https://github.com/RBEGamer/WeatherFrame
 * RAM space calculator
 * Export frames as multiframe BMP
 * Different simple ASCII and binary based export formats (see the export area below)
+* Project files can be open with the VisualStudio for Mac Preview
+
+# EXPORT
+There are multible export formats avariable :
+* `PFA` used in the WeatherFrameProject and this are the ProjectFiles for this tools, please the the `PFA_FORMAT_DESCRIPTION.md`
+* `CSV` export the colortable and data as CSV
+* `BMP` export the frames as single frame bitmap or as spritesheet bitmap
+
 
 # IMPORT RESTRICTIONS
 
@@ -29,12 +37,6 @@ The ASE imported is WIP!
 * Imports only the new ASE project files ( Aseprite > V1.2)
 * Currently only projects in RGB Mode (raw, not compressed), no masks (will be ignored), blend mode = normal
 
-
-# EXPORT
-There are multible export formats avariable :
-* `PFA` used in the WeatherFrameProject and this are the ProjectFiles for this tools, please the the `PFA_FORMAT_DESCRIPTION.md`
-* `CSV` export the colortable and data as CSV
-* `BMP` export the frames as single frame bitmap or as spritesheet bitmap
 
 
 # SCREENSHOTS
