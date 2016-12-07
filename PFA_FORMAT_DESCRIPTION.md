@@ -1,10 +1,5 @@
 # PFA (*.PFA) - FORMAT DESCRIPTION
 
-
-
-## HEADER VERSION 2 (latest) - ASCIIHEADV2
-To export the animations in this format please set the `EXPORT FORMAT`- Box to `ASCIIHEADV2`
-
 ### FEATURES
 * complete redable text (standard ASCII)
 * UFT8 mode
@@ -12,6 +7,9 @@ To export the animations in this format please set the `EXPORT FORMAT`- Box to `
 * only ` \n ` line termination
 * the headers will be split by a `_`
 * the matrix data will be split by a `,`
+
+#### LATEST VERSION
+* HEADER VERSION 2 (latest) - ASCIIHEADV2
 
 ### GENERAL FILE STRUCTURE
 * ------ START OF FILE -----------
