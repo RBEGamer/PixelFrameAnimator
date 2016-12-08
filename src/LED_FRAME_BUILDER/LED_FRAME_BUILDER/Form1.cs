@@ -111,14 +111,14 @@ namespace LED_FRAME_BUILDER
             }
         }
 
-private bool AreColorsSimilar(Color c1, Color c2, int tolerance)
+        private bool AreColorsSimilar(Color c1, Color c2, int tolerance)
  {
              return Math.Abs(c1.R - c2.R) < tolerance && Math.Abs(c1.G - c2.G) < tolerance && Math.Abs(c1.B - c2.B) < tolerance;
  }
         private void export_layers()
         {
             //get sel layer coutn
-            saveFileDialog1.Filter = "FRAME_BUIDER_ANIMATION_FILE (.ANI) | *.ANI";
+            saveFileDialog1.Filter = "FRAME_BUIDER_ANIMATION_FILE (.PFA) | *.PFA";
             if (saveFileDialog1.ShowDialog() == DialogResult.OK)
             {
                 
@@ -142,8 +142,45 @@ private bool AreColorsSimilar(Color c1, Color c2, int tolerance)
                 return;
             }
 
-            string matrix_data = "";
-            for (int i = 0; i < exp_layer_cboxlist.CheckedItems.Count; i++)
+
+            if(comb_export_mode.SelectedItem.ToString() == "")
+                {
+                    MessageBox.Show("EXPORT FAILED - SELECT A SPORT FORMAT VERSION IN THE SETTINGS");
+                    return;
+                }
+
+                //CALC SIZES
+                int bytes_table = (1 * matrix_size_h * matrix_size_w * exp_layer_cboxlist.CheckedItems.Count * sizeof(byte)) + (7 * exp_layer_cboxlist.CheckedItems.Count * sizeof(byte));
+                int bytes_color = 3 * colors.Count * sizeof(byte);
+
+                //EXPORT STRING OBJ
+                string matrix_data = "";
+
+                //FIRST LINE THE FILE VERISON
+                matrix_data += comb_export_mode.SelectedItem.ToString() + "\n";
+
+                //-------------- START NEW FILE FORMAT ADDITIONAL V2
+
+                //EXPORT NEW FILE HEADER
+                if(comb_export_mode.SelectedItem.ToString() == "ASCIIHEADV2")
+                {
+                    matrix_data += "PFA_ASCIIHEADV2_"  + matrix_size_w.ToString() + "_" + matrix_size_h.ToString() + "_" + layers.Count.ToString() + "_" + colors.Count.ToString()  + "_RGB_" + sizeof(byte).ToString() + "_" + bytes_table.ToString() + "_" + bytes_color.ToString() + "_\n";
+                }
+                //EXPORT COLOR TABLE
+                if (comb_export_mode.SelectedItem.ToString() == "ASCIIHEADV2")
+                {
+                    int counter = 0;
+                    foreach (Color n in colors)
+                    {
+                        matrix_data += "COLOR_" + counter.ToString() + "_" + n.R.ToString() + "_"+ n.G.ToString() + "_" + n.B.ToString() +"_\n";
+                        counter++;
+                    }
+                }
+                //-------------- END NEW FILE FORMAT ADDItiONAL V2
+
+                //EXPORT FRAMES
+
+                for (int i = 0; i < exp_layer_cboxlist.CheckedItems.Count; i++)
             {
                 matrix_data += "FRAME_" + i.ToString() + "_"+ exp_layer_cboxlist.CheckedItems.Count + "_" + matrix_size_w.ToString() + "_" + matrix_size_h.ToString() + "_" + (int)layers[exp_layer_cboxlist.CheckedIndices[i]].visibilty + "_" + (int)layers[exp_layer_cboxlist.CheckedIndices[i]].delay + "_" + "\n";
                 int layer_id = 0;
@@ -162,33 +199,34 @@ private bool AreColorsSimilar(Color c1, Color c2, int tolerance)
                 System.IO.File.WriteAllText(saveFileDialog1.FileName.ToUpper(), matrix_data);
 
 
-
-                //NOW EXPORT COLOR TABLE
-                try
+                if (comb_export_mode.SelectedItem.ToString() == "ASCIIHEADV1")
                 {
-                    FileStream fileStream = File.Open("COLORS.csv", FileMode.Open);
-                    fileStream.SetLength(0);
-                    fileStream.Flush();
-                    string color_text = "";
-                    //CREATE COLOR TABLE
-                    for (int i = 0; i < colors.Count; i++)
+
+                    //NOW EXPORT COLOR TABLE
+                    try
                     {
-                        color_text += colors[i].R.ToString() + ";" + colors[i].G.ToString() + ";" + colors[i].B.ToString() +";" + "\n";
+                        FileStream fileStream = File.Open("COLORS.csv", FileMode.Open);
+                        fileStream.SetLength(0);
+                        fileStream.Flush();
+                        string color_text = "";
+                        //CREATE COLOR TABLE
+                        for (int i = 0; i < colors.Count; i++)
+                        {
+                            color_text += colors[i].R.ToString() + ";" + colors[i].G.ToString() + ";" + colors[i].B.ToString() + ";" + "\n";
+                        }
+                        char[] bla = color_text.ToCharArray();
+
+                        fileStream.Write(Encoding.UTF8.GetBytes(bla), 0, Encoding.UTF8.GetByteCount(bla));
+                        fileStream.Close();
                     }
-                    char[] bla= color_text.ToCharArray();
-
-                    fileStream.Write(Encoding.UTF8.GetBytes(bla), 0, Encoding.UTF8.GetByteCount(bla));
-                    fileStream.Close();
-                }
-                catch (Exception)
-                {
-                    MessageBox.Show("EXPORT FAILED - COLORS.csv cant export");
-                    return;
+                    catch (Exception)
+                    {
+                        MessageBox.Show("EXPORT FAILED - COLORS.csv cant export");
+                        return;
+                    }
                 }
 
-
-                int bytes_table = (1 * matrix_size_h * matrix_size_w * exp_layer_cboxlist.CheckedItems.Count) + (7* exp_layer_cboxlist.CheckedItems.Count);
-                int bytes_color = 3 * colors.Count;
+             
 
                 MessageBox.Show("BYTES FOR FRAMES : " + bytes_table.ToString() + " BYTES FOR COLOR TABLE: " + bytes_color.ToString() + " = " + (bytes_color + bytes_table).ToString() + " .");
             }
@@ -205,7 +243,7 @@ private bool AreColorsSimilar(Color c1, Color c2, int tolerance)
 
 
             openFileDialog1.FileName = "";
-            openFileDialog1.Filter = "FRAME_BUIDER_ANIMATION_FILE (.ANI) | *.ANI";
+            openFileDialog1.Filter = "FRAME_BUIDER_ANIMATION_FILE (.PFA) | *.PFA";
             int frame_counter = 0;
             int frame_id = 0;
 
@@ -232,9 +270,31 @@ private bool AreColorsSimilar(Color c1, Color c2, int tolerance)
                 int frame_size_h = 0;
                 int delay = 500;
                 int visi = 255;
+                string file_version = "";
+                int col_counter = 0;
+                List<string> color_strings = new List<string>();
                 for (int i = 0; i < lines.Length; i++)
                 {
+                    //FIST LINE CHECK
+                    if(i == 0 && lines[i] == "ASCIIHEADV2")
+                    {
+                        file_version = lines[i];
+                        if (!file_version.Contains("ASCIIHEAD")){
+                            MessageBox.Show("IMPORT FIALED NO VERSION INFORMATiON AT LINE 0");
+                            return;
+                        }
+                        continue;
+                    }
 
+
+                    if (file_version == "ASCIIHEADV2")
+                    {
+                        if (lines[i].Contains("COLOR_"))
+                        {
+                            color_strings.Add(lines[i]);
+                             col_counter++;
+                        }
+                    }
                     if (lines[i].Contains("FRAME_"))
                     {
                         frame_counter++;
@@ -298,6 +358,56 @@ private bool AreColorsSimilar(Color c1, Color c2, int tolerance)
 
                     }
                 }
+
+
+                //SORT COLORS
+                if (file_version == "ASCIIHEADV2")
+                {
+                    colors.Clear();
+                    int cidc = 0;
+                    //nach ids souch das parsen zu colors addedn
+                    foreach (string n in color_strings)
+                    {
+                        string[] colspl = n.Split('_');
+                        int colid = int.Parse(colspl[1]);
+
+                        if(colid == cidc)
+                        {
+                            Color tmp = new Color();
+                            tmp = Color.FromArgb(int.Parse(colspl[2]), int.Parse(colspl[3]), int.Parse(colspl[4]));
+                            colors.Add(tmp);
+                            color_strings.Remove(n);
+                        }else
+                        {
+                            continue;
+                        }
+                        cidc++;
+                    }
+
+
+                    //ADD COLORS TO VISIVLE BOXES
+                    int color_pw = color_chooser.Size.Width / 32;
+                    int color_ph = colors.Count / color_pw;
+                    color_chooser.Controls.Clear();
+                    for (int i = 0; i < colors.Count; i++)
+                    {
+                        PictureBox pic = new PictureBox();
+                        pic.Name = "colorpick_" + i.ToString();
+                        pic.Size = new Size(32, 32);
+                        pic.BackColor = colors[i];
+                        int row_mult = 0;
+                        if (color_ph > 0)
+                        {
+                            row_mult = (i / color_ph);
+                        }
+                        pic.Location = new Point((i % color_pw) * 32, row_mult * 32);
+                        pic.Click += click_color;
+
+                        color_chooser.Controls.Add(pic);
+                    }
+                }
+
+
 
 
                 for (int i = 0; i < layers.Count; i++)
@@ -1034,7 +1144,7 @@ private bool AreColorsSimilar(Color c1, Color c2, int tolerance)
             _ref.name = new ASE_STRING();
             _ref.name.lenght = 0;
             _ref.name.string_data = new byte[1];
-            _ref.name.string_data[0] = '\0';
+            _ref.name.string_data[0] = (byte)'\0';
         }
 
 

@@ -38,6 +38,7 @@
             this.openBMPToLayerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.importMultiframeBitmapToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.importASPRITEProjectToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.exportAsBMPToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.addColorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tabControl1 = new System.Windows.Forms.TabControl();
@@ -68,7 +69,8 @@
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.colorDialog1 = new System.Windows.Forms.ColorDialog();
             this.fileSystemWatcher1 = new System.IO.FileSystemWatcher();
-            this.exportAsBMPToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.comb_export_mode = new System.Windows.Forms.ComboBox();
+            this.label6 = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -163,6 +165,13 @@
             this.importASPRITEProjectToolStripMenuItem.Size = new System.Drawing.Size(213, 22);
             this.importASPRITEProjectToolStripMenuItem.Text = "Import ASPRITE Project";
             this.importASPRITEProjectToolStripMenuItem.Click += new System.EventHandler(this.importASPRITEProjectToolStripMenuItem_Click);
+            // 
+            // exportAsBMPToolStripMenuItem
+            // 
+            this.exportAsBMPToolStripMenuItem.Name = "exportAsBMPToolStripMenuItem";
+            this.exportAsBMPToolStripMenuItem.Size = new System.Drawing.Size(213, 22);
+            this.exportAsBMPToolStripMenuItem.Text = "Export as BMP";
+            this.exportAsBMPToolStripMenuItem.Click += new System.EventHandler(this.exportAsBMPToolStripMenuItem_Click);
             // 
             // editToolStripMenuItem
             // 
@@ -339,6 +348,8 @@
             // 
             // tabPage3
             // 
+            this.tabPage3.Controls.Add(this.label6);
+            this.tabPage3.Controls.Add(this.comb_export_mode);
             this.tabPage3.Controls.Add(this.ase_auto_import_cbx);
             this.tabPage3.Controls.Add(this.button5);
             this.tabPage3.Controls.Add(this.button4);
@@ -360,7 +371,7 @@
             this.ase_auto_import_cbx.AutoSize = true;
             this.ase_auto_import_cbx.Checked = true;
             this.ase_auto_import_cbx.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.ase_auto_import_cbx.Location = new System.Drawing.Point(53, 400);
+            this.ase_auto_import_cbx.Location = new System.Drawing.Point(36, 399);
             this.ase_auto_import_cbx.Name = "ase_auto_import_cbx";
             this.ase_auto_import_cbx.Size = new System.Drawing.Size(125, 17);
             this.ase_auto_import_cbx.TabIndex = 8;
@@ -473,12 +484,26 @@
             this.fileSystemWatcher1.SynchronizingObject = this;
             this.fileSystemWatcher1.Changed += new System.IO.FileSystemEventHandler(this.fileSystemWatcher1_Changed);
             // 
-            // exportAsBMPToolStripMenuItem
+            // comb_export_mode
             // 
-            this.exportAsBMPToolStripMenuItem.Name = "exportAsBMPToolStripMenuItem";
-            this.exportAsBMPToolStripMenuItem.Size = new System.Drawing.Size(213, 22);
-            this.exportAsBMPToolStripMenuItem.Text = "Export as BMP";
-            this.exportAsBMPToolStripMenuItem.Click += new System.EventHandler(this.exportAsBMPToolStripMenuItem_Click);
+            this.comb_export_mode.FormattingEnabled = true;
+            this.comb_export_mode.Items.AddRange(new object[] {
+            "ASCIIHEADV1",
+            "ASCIIHEADV2"});
+            this.comb_export_mode.Location = new System.Drawing.Point(36, 450);
+            this.comb_export_mode.Name = "comb_export_mode";
+            this.comb_export_mode.Size = new System.Drawing.Size(121, 21);
+            this.comb_export_mode.TabIndex = 9;
+            this.comb_export_mode.Text = "ASCIIHEADV2";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(50, 434);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(86, 13);
+            this.label6.TabIndex = 10;
+            this.label6.Text = "EXPORT MODE";
             // 
             // Form1
             // 
@@ -554,6 +579,8 @@
         private System.IO.FileSystemWatcher fileSystemWatcher1;
         private System.Windows.Forms.CheckBox ase_auto_import_cbx;
         private System.Windows.Forms.ToolStripMenuItem exportAsBMPToolStripMenuItem;
+        private System.Windows.Forms.ComboBox comb_export_mode;
+        private System.Windows.Forms.Label label6;
     }
 }
 
