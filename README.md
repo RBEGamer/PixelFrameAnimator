@@ -18,7 +18,7 @@ https://github.com/RBEGamer/WeatherFrame
 
 # EXPORT
 There are multible export formats avariable :
-* `PFA` used in the WeatherFrameProject and this are the ProjectFiles for this tools, please the the `PFA_FORMAT_DESCRIPTION.md`
+* `PFA` used in the WeatherFrameProject and this are the ProjectFiles for this tools, please note the `PFA_FORMAT_DESCRIPTION.md`
 * `CSV` export the colortable and data as CSV
 * `BMP` export the frames as single frame bitmap or as spritesheet bitmap
 
