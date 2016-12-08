@@ -56,8 +56,8 @@ Field explanation from left to right!
 A `COLOR DEFINITION` defines a color used in the animation. The color will be accessed by a id, and will be used by the `FRAME DATA FILED`. 
 
 Example color line :
-* `COLDEF_0_255_0_0`
-* `COLDEF_1_128_128_128`
+* `COLOR_0_255_0_0`
+* `COLOR_1_128_128_128`
 
 #### DETAILED EXPLANATION OF `COLOR DEFINITION`
 * `COLDEF` (char[6]) line is a color definition line (must be `COLDEF`)
