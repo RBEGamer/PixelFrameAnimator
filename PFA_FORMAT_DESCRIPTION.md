@@ -48,8 +48,8 @@ Field explanation from left to right!
 * `16` (1 byte) is the count of used colors
 * `RGB` (char[3]) is the colormode : can be [`RGB`,`GRB`,`BGR`,`BRG`]
 * `1` (1 byte) reserved (parsing datatype)
-* `700` (unsigned int) color table size (=  write offset)
-* `48` (usnigend int) data table size (= write offset)
+* `700` (unsigned int) data table size (=  write offset)
+* `48` (usnigend int) color table size (= write offset)
 
 
 ## COLOR DEFINITION
