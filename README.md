@@ -51,4 +51,5 @@ The ASE imported is WIP!
 
 
 # TODO
-* create .net core export library
+* add a slider for new color id sensitivity a bmp import
+* add binary export mode of Header V2
