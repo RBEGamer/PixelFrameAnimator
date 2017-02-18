@@ -33,7 +33,7 @@ There are multible export formats avariable :
 * support multi row/collum
 
 ## ASE (ASEPRITE) PROJECT IMPORT
-The ASE imported is WIP!
+The ASE import is WIP!
 * Imports only the new ASE project files ( Aseprite > V1.2)
 * Currently only projects in RGB Mode (raw, not compressed), no masks (will be ignored), blend mode = normal
 
