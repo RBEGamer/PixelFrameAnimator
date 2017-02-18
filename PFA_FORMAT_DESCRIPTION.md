@@ -40,7 +40,7 @@ This is an example header line :
 #### DETAILED EXPLANATION OF `FILE SIZE HEADER`
 Field explanation from left to right!
 
-* `PFA` (char[3]) is the magic word, must bew PFA
+* `PFA` (char[3]) is the magic word, must be PFA
 * `ASCIIHEADV2`(char[15]) the header version (this is required since file version 2)
 * `8`(1 byte) is the width of the matrix (maximum width, layer width can vary)
 * `8`(1 byte) is the height of the matrix (maximum height, layer height can vary)
