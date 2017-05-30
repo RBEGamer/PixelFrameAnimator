@@ -15,7 +15,7 @@ https://github.com/RBEGamer/WeatherFrame
 * Export frames as multiframe BMP
 * Different simple ASCII and binary based export formats (see the export area below)
 * Project files can be open with the VisualStudio for Mac Preview
-
+* Automatic colorspace downsampling like if your device has only 4bit for a color,...
 # EXPORT
 There are multible export formats avariable :
 * `PFA` used in the WeatherFrameProject and this are the ProjectFiles for this tools, please note the `PFA_FORMAT_DESCRIPTION.md`
@@ -33,7 +33,7 @@ There are multible export formats avariable :
 * support multi row/collum
 
 ## ASE (ASEPRITE) PROJECT IMPORT
-The ASE import is WIP!
+The ASE import is currently WIP!
 * Imports only the new ASE project files ( Aseprite > V1.2)
 * Currently only projects in RGB Mode (raw, not compressed), no masks (will be ignored), blend mode = normal
 
