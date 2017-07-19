@@ -30,7 +30,7 @@
 
 
 ### FILE VERSION IDENTIFIER
-At start of the *.PFA File there must be a line `ASCIIHEADV2` for identifying the new format.
+At start of the `*.PFA File there must be a line `ASCIIHEADV2` for identifying the new format.
 
 ### FILE SIZE HEADER
 The new format requires a before parsing, information about the number of colors and layer to allocate the right ram offset values.
