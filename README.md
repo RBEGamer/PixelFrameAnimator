@@ -54,3 +54,14 @@ The ASE import is currently WIP!
 * add a slider for new color id sensitivity a bmp import
 * add binary export mode of Header V2
 * finish ase import
+
+
+
+
+
+
+
+
+
+# DONATION
+[![paypal](https://www.paypalobjects.com/de_DE/DE/i/btn/btn_donate_SM.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=8D2PEDQ27UJ9Y)
