@@ -1,7 +1,7 @@
 
 ![Gopher image](/documentation/logo.png)
-A animation design tool for the weather frame project.
-But with the easy to parse export formats, you can it use easily in other projects.
+An animation design tool for the weather frame project.
+But with easy to parse and export formats, you can it use easily in other projects.
 Please see the WeaterhFrame project:
 https://github.com/RBEGamer/WeatherFrame
 
@@ -18,7 +18,7 @@ https://github.com/RBEGamer/WeatherFrame
 * Project files can be open with the VisualStudio for Mac Preview
 * Automatic colorspace downsampling like if your device has only 4bit for a color,...
 # EXPORT
-There are multible export formats avariable :
+There are multible export formats avariable:
 * `PFA` used in the WeatherFrameProject and this are the ProjectFiles for this tools, please note the `PFA_FORMAT_DESCRIPTION.md`
 * `CSV` export the colortable and data as CSV
 * `BMP` export the frames as single frame bitmap or as spritesheet bitmap
